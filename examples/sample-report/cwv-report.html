@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Core Web Vitals report</title><style>
+:root{color-scheme:light dark;--bg:#fff;--fg:#1d2330;--muted:#5f6878;--line:#e3e6ec;--card:#f7f8fa;
+--good:#0a8f5c;--ni:#c26a00;--poor:#c7302b;--accent:#2f5bd3}
+@media (prefers-color-scheme:dark){:root{--bg:#12151b;--fg:#e8ebf1;--muted:#9aa3b2;--line:#2a303b;--card:#1a1e26;
+--good:#3ccf8e;--ni:#f2a43a;--poor:#ff6b62;--accent:#7b9bff}}
+*{box-sizing:border-box}body{margin:0;font:14px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--fg)}
+main{max-width:1100px;margin:0 auto;padding:32px 20px 64px}h1{font-size:24px;margin:0 0 4px}h2{font-size:18px;margin:36px 0 8px}
+.muted{color:var(--muted)}.status{display:inline-block;padding:2px 10px;border-radius:999px;font-weight:600}
+.status.pass{background:color-mix(in srgb,var(--good) 15%,transparent);color:var(--good)}
+.status.fail{background:color-mix(in srgb,var(--poor) 15%,transparent);color:var(--poor)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:20px 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px}.card b{display:block;font-size:22px}
+table{width:100%;border-collapse:collapse;margin:8px 0 12px}th,td{padding:7px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:middle}
+th{font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:600}td.num{text-align:right;font-variant-numeric:tabular-nums}
+.r-good{color:var(--good)}.r-needs-improvement{color:var(--ni)}.r-poor{color:var(--poor)}
+.pill{display:inline-block;min-width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:-1px;background:currentColor}
+.dist{display:flex;height:8px;width:110px;border-radius:4px;overflow:hidden;background:var(--line)}
+.dist span:nth-child(1){background:var(--good)}.dist span:nth-child(2){background:var(--ni)}.dist span:nth-child(3){background:var(--poor)}
+.spark-line{stroke:var(--accent);stroke-width:1.5}.spark-last,.spark-dot{fill:var(--accent)}
+.spark-good{stroke:var(--good);stroke-dasharray:2 2;opacity:.6}.spark-poor{stroke:var(--poor);stroke-dasharray:2 2;opacity:.6}
+.spark-empty{fill:var(--muted);font-size:10px}ul.issues{margin:6px 0 0;padding-left:18px}.issues li{margin:2px 0}
+.fail{color:var(--poor)}.warn{color:var(--ni)}footer{margin-top:48px;font-size:12px}a{color:var(--accent)}
+</style></head>
+<body><main>
+<h1>Core Web Vitals report</h1>
+<div><span class="status fail">Failed</span>
+<span class="muted"> 2026-11-12 06:00 UTC</span></div>
+<div class="cards"><div class="card"><span class="muted">Targets</span><b class="">6</b></div><div class="card"><span class="muted">With field data</span><b class="">4</b></div><div class="card"><span class="muted">Budget failures</span><b class="fail">9</b></div><div class="card"><span class="muted">Regressions</span><b class="">0</b></div><div class="card"><span class="muted">Worsening trends</span><b class="warn">4</b></div><div class="card"><span class="muted">Errors</span><b class="">0</b></div></div>
+<section id="home-phone">
+<h2>Home <span class="muted">· phone</span></h2>
+<div class="muted"><a href="https://www.example.com/" rel="noopener noreferrer">https://www.example.com/</a> · Lighthouse 12.8.2 score <b>68</b></div>
+<table><thead><tr><th>Metric</th><th>Field p75</th><th>Distribution</th><th>Change</th><th>Trend</th><th>Lab</th></tr></thead>
+<tbody><tr><th scope="row">Largest Contentful Paint <span class="muted">LCP</span></th>
+<td class="num"><span class="r-good" title="Good"><span class="pill"></span>2.14 s</span></td>
+<td><div class="dist" title="good 71.0%, needs improvement 19.0%, poor 10.0%"><span style="width:71.0%"></span><span style="width:19.0%"></span><span style="width:10.0%"></span></div></td><td class="num ">—</td>
+<td><svg class="spark" xmlns="http://www.w3.org/2000/svg" width="120" height="28" viewBox="0 0 120 28" role="img"><title>Largest Contentful Paint p75, 2026-09-13 to 2026-11-01</title><polyline class="spark-line" fill="none" points="19.3,25 35.6,21.3 51.9,17.7 68.1,14 84.4,10.3 100.7,6.7 117,3"/><circle class="spark-last" cx="117" cy="3" r="2.5"><title>2.17 s</title></circle></svg><div class="muted">worsening (+10.7%)</div></td>
+<td class="num"><span class="r-needs-improvement" title="Needs improvement"><span class="pill"></span>3.9 s</span></td></tr>
+<tr><th scope="row">Interaction to Next Paint <span class="muted">INP</span></th>
+<td class="num"><span class="r-good" title="Good"><span class="pill"></span>160 ms</span></td>
+<td><div class="dist" title="good 71.0%, needs improvement 19.0%, poor 10.0%"><span style="width:71.0%"></span><span style="width:19.0%"></span><span style="width:10.0%"></span></div></td><td class="num ">—</td>
+<td><svg class="spark" xmlns="http://www.w3.org/2000/svg" width="120" height="28" viewBox="0 0 120 28" role="img"><title>Interaction to Next Paint p75, 2026-09-13 to 2026-11-01</title><polyline class="spark-line" fill="none" points="19.3,3 35.6,6.7 51.9,10.3 68.1,14 84.4,17.7 100.7,21.3 117,25"/><circle class="spark-last" cx="117" cy="25" r="2.5"><title>156 ms</title></circle></svg><div class="muted">improving (-15.2%)</div></td>
+<td class="num"><span class="muted">n/a</span></td></tr>
+<tr><th scope="row">Cumulative Layout Shift <span class="muted">CLS</span></th>
+<td class="num"><span class="r-good" title="Good"><span class="pill"></span>0.04</span></td>
+<td><div class="dist" title="good 71.0%, needs improvement 19.0%, poor 10.0%"><span style="width:71.0%"></span><span style="width:19.0%"></span><span style="width:10.0%"></span></div></td><td class="num ">—</td>
+<td><svg class="spark" xmlns="http://www.w3.org/2000/svg" width="120" height="28" viewBox="0 0 120 28" role="img"><title>Cumulative Layout Shift p75, 2026-09-13 to 2026-11-01</title><polyline class="spark-line" fill="none" points="19.3,14 35.6,14 51.9,14 68.1,14 84.4,14 100.7,14 117,14"/><circle class="spark-last" cx="117" cy="14" r="2.5"><title>0.04</title></circle></svg><div class="muted">stable</div></td>
+<td class="num"><span class="r-good" title="Good"><span class="pill"></span>0.06</span></td></tr>
+<tr><th scope="row">First Contentful Paint <span class="muted">FCP</span></th>
+<td class="num"><span class="r-good" title="Good"><span class="pill"></span>1.35 s</span></td>
+<td><div class="dist" title="good 71.0%, needs improvement 19.0%, poor 10.0%"><span style="width:71.0%"></span><span style="width:19.0%"></span><span style="width:10.0%"></span></div></td><td class="num ">—</td>
+<td><span class="muted">—</span><div class="muted"></div></td>
+<td class="num"><span class="r-good" title="Good"><span class="pill"></span>1.8 s</span></td></tr>
+<tr><th scope="row">Time to First Byte <span class="muted">TTFB</span></th>
+<td class="num"><span class="r-good" title="Good"><span class="pill"></span>620 ms</span></td>
+<td><div class="dist" title="good 71.0%, needs improvement 19.0%, poor 10.0%"><span style="width:71.0%"></span><span style="width:19.0%"></span><span style="width:10.0%"></span></div></td><td class="num ">—</td>
+<td><span class="muted">—</span><div class="muted"></div></td>
+<td class="num"><span class="r-good" title="Good"><span class="pill"></span>240 ms</span></td></tr></tbody></table>
+<ul class="issues"><li class="fail">Budget: Performance score (lab) 68, limit score &gt;= 70</li></ul>
+</section>
+<section id="home-desktop">
+<h2>Home <span class="muted">· desktop</span></h2>
+<div class="muted"><a href="https://www.example.com/" rel="noopener noreferrer">https://www.example.com/</a> · Lighthouse 12.8.2 score <b>93</b></div>
+<table><thead><tr><th>Metric</th><th>Field p75</th><th>Distribution</th><th>Change</th><th>Trend</th><th>Lab</th></tr></thead>
+<tbody><tr><th scope="row">Largest Contentful Paint <span class="muted">LCP</span></th>
+<td class="num"><span class="r-good" title="Good"><span class="pill"></span>2.14 s</span></td>
+<td><div class="dist" title="good 71.0%, needs improvement 19.0%, poor 10.0%"><span style="width:71.0%"></span><span style="width:19.0%"></span><span style="width:10.0%"></span></div></td><td class="num ">—</td>
+<td><svg class="spark" xmlns="http://www.w3.org/2000/svg" width="120" height="28" viewBox="0 0 120 28" role="img"><title>Largest Contentful Paint p75, 2026-09-13 to 2026-11-01</title><polyline class="spark-line" fill="none" points="19.3,25 35.6,21.3 51.9,17.7 68.1,14 84.4,10.3 100.7,6.7 117,3"/><circle class="spark-last" cx="117" cy="3" r="2.5"><title>2.17 s</title></circle></svg><div class="muted">worsening (+10.7%)</div></td>
+<td class="num"><span class="r-good" title="Good"><span class="pill"></span>1.5 s</span></td></tr>
+<tr><th scope="row">Interaction to Next Paint <span class="muted">INP</span></th>
+<td class="num"><span class="r-good" title="Good"><span class="pill"></span>160 ms</span></td>
+<td><div class="dist" title="good 71.0%, needs improvement 19.0%, poor 10.0%"><span style="width:71.0%"></span><span style="width:19.0%"></span><span style="width:10.0%"></span></div></td><td class="num ">—</td>
+<td><svg class="spark" xmlns="http://www.w3.org/2000/svg" width="120" height="28" viewBox="0 0 120 28" role="img"><title>Interaction to Next Paint p75, 2026-09-13 to 2026-11-01</title><polyline class="spark-line" fill="none" points="19.3,3 35.6,6.7 51.9,10.3 68.1,14 84.4,17.7 100.7,21.3 117,25"/><circle class="spark-last" cx="117" cy="25" r="2.5"><title>156 ms</title></circle></svg><div class="muted">improving (-15.2%)</div></td>
+<td class="num"><span class="muted">n/a</span></td></tr>
+<tr><th scope="row">Cumulative Layout Shift <span class="muted">CLS</span></th>
+<td class="num"><span class="r-good" title="Good"><span class="pill"></span>0.04</span></td>
+<td><div class="dist" title="good 71.0%, needs improvement 19.0%, poor 10.0%"><span style="width:71.0%"></span><span style="width:19.0%"></span><span style="width:10.0%"></span></div></td><td class="num ">—</td>
+<td><svg class="spark" xmlns="http://www.w3.org/2000/svg" width="120" height="28" viewBox="0 0 120 28" role="img"><title>Cumulative Layout Shift p75, 2026-09-13 to 2026-11-01</title><polyline class="spark-line" fill="none" points="19.3,14 35.6,14 51.9,14 68.1,14 84.4,14 100.7,14 117,14"/><circle class="spark-last" cx="117" cy="14" r="2.5"><title>0.04</title></circle></svg><div class="muted">stable</div></td>
+<td class="num"><span class="r-good" title="Good"><span class="pill"></span>0.06</span></td></tr>
+<tr><th scope="row">First Contentful Paint <span class="muted">FCP</span></th>
+<td class="num"><span class="r-good" title="Good"><span class="pill"></span>1.35 s</span></td>
+<td><div class="dist" title="good 71.0%, needs improvement 19.0%, poor 10.0%"><span style="width:71.0%"></span><span style="width:19.0%"></span><span style="width:10.0%"></span></div></td><td class="num ">—</td>
+<td><span class="muted">—</span><div class="muted"></div></td>
+<td class="num"><span class="r-good" title="Good"><span class="pill"></span>1.8 s</span></td></tr>
+<tr><th scope="row">Time to First Byte <span class="muted">TTFB</span></th>
+<td class="num"><span class="r-good" title="Good"><span class="pill"></span>620 ms</span></td>
+<td><div class="dist" title="good 71.0%, needs improvement 19.0%, poor 10.0%"><span style="width:71.0%"></span><span style="width:19.0%"></span><span style="width:10.0%"></span></div></td><td class="num ">—</td>
+<td><span class="muted">—</span><div class="muted"></div></td>
+<td class="num"><span class="r-good" title="Good"><span class="pill"></span>240 ms</span></td></tr></tbody></table>
+
+</section>
+<section id="product-page-phone">
+<h2>Product page <span class="muted">· phone</span></h2>
+<div class="muted"><a href="https://www.example.com/products/blue-widget" rel="noopener noreferrer">https://www.example.com/products/blue-widget</a> · Lighthouse 12.8.2 score <b>68</b></div>
+<table><thead><tr><th>Metric</th><th>Field p75</th><th>Distribution</th><th>Change</th><th>Trend</th><th>Lab</th></tr></thead>
+<tbody><tr><th scope="row">Largest Contentful Paint <span class="muted">LCP</span></th>
+<td class="num"><span class="r-needs-improvement" title="Needs improvement"><span class="pill"></span>3.32 s</span></td>
+<td><div class="dist" title="good 71.0%, needs improvement 19.0%, poor 10.0%"><span style="width:71.0%"></span><span style="width:19.0%"></span><span style="width:10.0%"></span></div></td><td class="num ">—</td>
+<td><svg class="spark" xmlns="http://www.w3.org/2000/svg" width="120" height="28" viewBox="0 0 120 28" role="img"><title>Largest Contentful Paint p75, 2026-09-13 to 2026-11-01</title><polyline class="spark-line" fill="none" points="19.3,25 35.6,21.3 51.9,17.7 68.1,14 84.4,10.3 100.7,6.7 117,3"/><circle class="spark-last" cx="117" cy="3" r="2.5"><title>3.35 s</title></circle></svg><div class="muted">worsening (+6.7%)</div></td>
+<td class="num"><span class="r-needs-improvement" title="Needs improvement"><span class="pill"></span>3.9 s</span></td></tr>
+<tr><th scope="row">Interaction to Next Paint <span class="muted">INP</span></th>
+<td class="num"><span class="r-needs-improvement" title="Needs improvement"><span class="pill"></span>240 ms</span></td>
+<td><div class="dist" title="good 71.0%, needs improvement 19.0%, poor 10.0%"><span style="width:71.0%"></span><span style="width:19.0%"></span><span style="width:10.0%"></span></div></td><td class="num ">—</td>
+<td><svg class="spark" xmlns="http://www.w3.org/2000/svg" width="120" height="28" viewBox="0 0 120 28" role="img"><title>Interaction to Next Paint p75, 2026-09-13 to 2026-11-01</title><polyline class="spark-line" fill="none" points="19.3,3 35.6,6.7 51.9,10.3 68.1,14 84.4,17.7 100.7,21.3 117,25"/><circle class="spark-last" cx="117" cy="25" r="2.5"><title>236 ms</title></circle></svg><div class="muted">improving (-10.6%)</div></td>
+<td class="num"><span class="muted">n/a</span></td></tr>
+<tr><th scope="row">Cumulative Layout Shift <span class="muted">CLS</span></th>
+<td class="num"><span class="r-needs-improvement" title="Needs improvement"><span class="pill"></span>0.18</span></td>
+<td><div class="dist" title="good 71.0%, needs improvement 19.0%, poor 10.0%"><span style="width:71.0%"></span><span style="width:19.0%"></span><span style="width:10.0%"></span></div></td><td class="num ">—</td>
+<td><svg class="spark" xmlns="http://www.w3.org/2000/svg" width="120" height="28" viewBox="0 0 120 28" role="img"><title>Cumulative Layout Shift p75, 2026-09-13 to 2026-11-01</title><polyline class="spark-line" fill="none" points="19.3,14 35.6,14 51.9,14 68.1,14 84.4,14 100.7,14 117,14"/><circle class="spark-last" cx="117" cy="14" r="2.5"><title>0.18</title></circle></svg><div class="muted">stable</div></td>
+<td class="num"><span class="r-good" title="Good"><span class="pill"></span>0.06</span></td></tr>
+<tr><th scope="row">First Contentful Paint <span class="muted">FCP</span></th>
+<td class="num"><span class="r-needs-improvement" title="Needs improvement"><span class="pill"></span>2.1 s</span></td>
+<td><div class="dist" title="good 71.0%, needs improvement 19.0%, poor 10.0%"><span style="width:71.0%"></span><span style="width:19.0%"></span><span style="width:10.0%"></span></div></td><td class="num ">—</td>
+<td><span class="muted">—</span><div class="muted"></div></td>
+<td class="num"><span class="r-good" title="Good"><span class="pill"></span>1.8 s</span></td></tr>
+<tr><th scope="row">Time to First Byte <span class="muted">TTFB</span></th>
+<td class="num"><span class="r-needs-improvement" title="Needs improvement"><span class="pill"></span>910 ms</span></td>
+<td><div class="dist" title="good 71.0%, needs improvement 19.0%, poor 10.0%"><span style="width:71.0%"></span><span style="width:19.0%"></span><span style="width:10.0%"></span></div></td><td class="num ">—</td>
+<td><span class="muted">—</span><div class="muted"></div></td>
+<td class="num"><span class="r-good" title="Good"><span class="pill"></span>240 ms</span></td></tr></tbody></table>
+<ul class="issues"><li class="fail">Budget: LCP (field) 3.32 s, limit rating good or better</li><li class="fail">Budget: INP (field) 240 ms, limit rating good or better</li><li class="fail">Budget: CLS (field) 0.18, limit rating good or better</li><li class="fail">Budget: Performance score (lab) 68, limit score &gt;= 70</li></ul>
+</section>
+<section id="product-page-desktop">
+<h2>Product page <span class="muted">· desktop</span></h2>
+<div class="muted"><a href="https://www.example.com/products/blue-widget" rel="noopener noreferrer">https://www.example.com/products/blue-widget</a> · Lighthouse 12.8.2 score <b>93</b></div>
+<table><thead><tr><th>Metric</th><th>Field p75</th><th>Distribution</th><th>Change</th><th>Trend</th><th>Lab</th></tr></thead>
+<tbody><tr><th scope="row">Largest Contentful Paint <span class="muted">LCP</span></th>
+<td class="num"><span class="r-needs-improvement" title="Needs improvement"><span class="pill"></span>3.32 s</span></td>
+<td><div class="dist" title="good 71.0%, needs improvement 19.0%, poor 10.0%"><span style="width:71.0%"></span><span style="width:19.0%"></span><span style="width:10.0%"></span></div></td><td class="num ">—</td>
+<td><svg class="spark" xmlns="http://www.w3.org/2000/svg" width="120" height="28" viewBox="0 0 120 28" role="img"><title>Largest Contentful Paint p75, 2026-09-13 to 2026-11-01</title><polyline class="spark-line" fill="none" points="19.3,25 35.6,21.3 51.9,17.7 68.1,14 84.4,10.3 100.7,6.7 117,3"/><circle class="spark-last" cx="117" cy="3" r="2.5"><title>3.35 s</title></circle></svg><div class="muted">worsening (+6.7%)</div></td>
+<td class="num"><span class="r-good" title="Good"><span class="pill"></span>1.5 s</span></td></tr>
+<tr><th scope="row">Interaction to Next Paint <span class="muted">INP</span></th>
+<td class="num"><span class="r-needs-improvement" title="Needs improvement"><span class="pill"></span>240 ms</span></td>
+<td><div class="dist" title="good 71.0%, needs improvement 19.0%, poor 10.0%"><span style="width:71.0%"></span><span style="width:19.0%"></span><span style="width:10.0%"></span></div></td><td class="num ">—</td>
+<td><svg class="spark" xmlns="http://www.w3.org/2000/svg" width="120" height="28" viewBox="0 0 120 28" role="img"><title>Interaction to Next Paint p75, 2026-09-13 to 2026-11-01</title><polyline class="spark-line" fill="none" points="19.3,3 35.6,6.7 51.9,10.3 68.1,14 84.4,17.7 100.7,21.3 117,25"/><circle class="spark-last" cx="117" cy="25" r="2.5"><title>236 ms</title></circle></svg><div class="muted">improving (-10.6%)</div></td>
+<td class="num"><span class="muted">n/a</span></td></tr>
+<tr><th scope="row">Cumulative Layout Shift <span class="muted">CLS</span></th>
+<td class="num"><span class="r-needs-improvement" title="Needs improvement"><span class="pill"></span>0.18</span></td>
+<td><div class="dist" title="good 71.0%, needs improvement 19.0%, poor 10.0%"><span style="width:71.0%"></span><span style="width:19.0%"></span><span style="width:10.0%"></span></div></td><td class="num ">—</td>
+<td><svg class="spark" xmlns="http://www.w3.org/2000/svg" width="120" height="28" viewBox="0 0 120 28" role="img"><title>Cumulative Layout Shift p75, 2026-09-13 to 2026-11-01</title><polyline class="spark-line" fill="none" points="19.3,14 35.6,14 51.9,14 68.1,14 84.4,14 100.7,14 117,14"/><circle class="spark-last" cx="117" cy="14" r="2.5"><title>0.18</title></circle></svg><div class="muted">stable</div></td>
+<td class="num"><span class="r-good" title="Good"><span class="pill"></span>0.06</span></td></tr>
+<tr><th scope="row">First Contentful Paint <span class="muted">FCP</span></th>
+<td class="num"><span class="r-needs-improvement" title="Needs improvement"><span class="pill"></span>2.1 s</span></td>
+<td><div class="dist" title="good 71.0%, needs improvement 19.0%, poor 10.0%"><span style="width:71.0%"></span><span style="width:19.0%"></span><span style="width:10.0%"></span></div></td><td class="num ">—</td>
+<td><span class="muted">—</span><div class="muted"></div></td>
+<td class="num"><span class="r-good" title="Good"><span class="pill"></span>1.8 s</span></td></tr>
+<tr><th scope="row">Time to First Byte <span class="muted">TTFB</span></th>
+<td class="num"><span class="r-needs-improvement" title="Needs improvement"><span class="pill"></span>910 ms</span></td>
+<td><div class="dist" title="good 71.0%, needs improvement 19.0%, poor 10.0%"><span style="width:71.0%"></span><span style="width:19.0%"></span><span style="width:10.0%"></span></div></td><td class="num ">—</td>
+<td><span class="muted">—</span><div class="muted"></div></td>
+<td class="num"><span class="r-good" title="Good"><span class="pill"></span>240 ms</span></td></tr></tbody></table>
+<ul class="issues"><li class="fail">Budget: LCP (field) 3.32 s, limit rating good or better</li><li class="fail">Budget: INP (field) 240 ms, limit rating good or better</li><li class="fail">Budget: CLS (field) 0.18, limit rating good or better</li></ul>
+</section>
+<section id="new-landing-page-phone">
+<h2>New landing page <span class="muted">· phone</span></h2>
+<div class="muted"><a href="https://www.example.com/landing/new" rel="noopener noreferrer">https://www.example.com/landing/new</a> · Lighthouse 12.8.2 score <b>68</b> · <span class="muted">no CrUX field data</span></div>
+<table><thead><tr><th>Metric</th><th>Field p75</th><th>Distribution</th><th>Change</th><th>Trend</th><th>Lab</th></tr></thead>
+<tbody><tr><th scope="row">Largest Contentful Paint <span class="muted">LCP</span></th>
+<td class="num"><span class="muted">n/a</span></td>
+<td><span class="muted">—</span></td><td class="num ">—</td>
+<td><span class="muted">—</span><div class="muted"></div></td>
+<td class="num"><span class="r-needs-improvement" title="Needs improvement"><span class="pill"></span>3.9 s</span></td></tr>
+<tr><th scope="row">Interaction to Next Paint <span class="muted">INP</span></th>
+<td class="num"><span class="muted">n/a</span></td>
+<td><span class="muted">—</span></td><td class="num ">—</td>
+<td><span class="muted">—</span><div class="muted"></div></td>
+<td class="num"><span class="muted">n/a</span></td></tr>
+<tr><th scope="row">Cumulative Layout Shift <span class="muted">CLS</span></th>
+<td class="num"><span class="muted">n/a</span></td>
+<td><span class="muted">—</span></td><td class="num ">—</td>
+<td><span class="muted">—</span><div class="muted"></div></td>
+<td class="num"><span class="r-good" title="Good"><span class="pill"></span>0.06</span></td></tr>
+<tr><th scope="row">First Contentful Paint <span class="muted">FCP</span></th>
+<td class="num"><span class="muted">n/a</span></td>
+<td><span class="muted">—</span></td><td class="num ">—</td>
+<td><span class="muted">—</span><div class="muted"></div></td>
+<td class="num"><span class="r-good" title="Good"><span class="pill"></span>1.8 s</span></td></tr>
+<tr><th scope="row">Time to First Byte <span class="muted">TTFB</span></th>
+<td class="num"><span class="muted">n/a</span></td>
+<td><span class="muted">—</span></td><td class="num ">—</td>
+<td><span class="muted">—</span><div class="muted"></div></td>
+<td class="num"><span class="r-good" title="Good"><span class="pill"></span>240 ms</span></td></tr></tbody></table>
+<ul class="issues"><li class="fail">Budget: Performance score (lab) 68, limit score &gt;= 70</li></ul>
+</section>
+<section id="new-landing-page-desktop">
+<h2>New landing page <span class="muted">· desktop</span></h2>
+<div class="muted"><a href="https://www.example.com/landing/new" rel="noopener noreferrer">https://www.example.com/landing/new</a> · Lighthouse 12.8.2 score <b>93</b> · <span class="muted">no CrUX field data</span></div>
+<table><thead><tr><th>Metric</th><th>Field p75</th><th>Distribution</th><th>Change</th><th>Trend</th><th>Lab</th></tr></thead>
+<tbody><tr><th scope="row">Largest Contentful Paint <span class="muted">LCP</span></th>
+<td class="num"><span class="muted">n/a</span></td>
+<td><span class="muted">—</span></td><td class="num ">—</td>
+<td><span class="muted">—</span><div class="muted"></div></td>
+<td class="num"><span class="r-good" title="Good"><span class="pill"></span>1.5 s</span></td></tr>
+<tr><th scope="row">Interaction to Next Paint <span class="muted">INP</span></th>
+<td class="num"><span class="muted">n/a</span></td>
+<td><span class="muted">—</span></td><td class="num ">—</td>
+<td><span class="muted">—</span><div class="muted"></div></td>
+<td class="num"><span class="muted">n/a</span></td></tr>
+<tr><th scope="row">Cumulative Layout Shift <span class="muted">CLS</span></th>
+<td class="num"><span class="muted">n/a</span></td>
+<td><span class="muted">—</span></td><td class="num ">—</td>
+<td><span class="muted">—</span><div class="muted"></div></td>
+<td class="num"><span class="r-good" title="Good"><span class="pill"></span>0.06</span></td></tr>
+<tr><th scope="row">First Contentful Paint <span class="muted">FCP</span></th>
+<td class="num"><span class="muted">n/a</span></td>
+<td><span class="muted">—</span></td><td class="num ">—</td>
+<td><span class="muted">—</span><div class="muted"></div></td>
+<td class="num"><span class="r-good" title="Good"><span class="pill"></span>1.8 s</span></td></tr>
+<tr><th scope="row">Time to First Byte <span class="muted">TTFB</span></th>
+<td class="num"><span class="muted">n/a</span></td>
+<td><span class="muted">—</span></td><td class="num ">—</td>
+<td><span class="muted">—</span><div class="muted"></div></td>
+<td class="num"><span class="r-good" title="Good"><span class="pill"></span>240 ms</span></td></tr></tbody></table>
+
+</section>
+<footer class="muted">cwv-watch 0.1.0. Field data from the Chrome UX Report (75th percentile over 28 days, weekly history).
+Lab data from PageSpeed Insights (single Lighthouse run). Dashed lines in the sparklines mark the good and poor boundaries.</footer>
+</main></body></html>

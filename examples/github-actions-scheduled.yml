@@ -1,0 +1,63 @@
+# Copy to .github/workflows/core-web-vitals.yml in the repository that holds
+# your cwv-watch.config.json. Add a repository secret CWV_API_KEY: a Google
+# Cloud API key with the "Chrome UX Report API" and "PageSpeed Insights API"
+# enabled. Optional secrets: SLACK_WEBHOOK_URL, TELEGRAM_BOT_TOKEN,
+# TELEGRAM_CHAT_ID.
+name: Core Web Vitals
+
+on:
+  schedule:
+    # CrUX updates daily around 04:00 UTC; run a little later.
+    - cron: '30 6 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: core-web-vitals
+  cancel-in-progress: false
+
+jobs:
+  cwv:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      # The previous run is needed for regression detection. Caches are
+      # immutable, so save under a unique key and restore the newest one.
+      - name: Restore run history
+        uses: actions/cache/restore@v4
+        with:
+          path: .cwv-watch
+          key: cwv-history-${{ github.run_id }}
+          restore-keys: cwv-history-
+
+      - name: Run cwv-watch
+        id: cwv
+        run: npx --yes cwv-watch@0.1.0 run --config cwv-watch.config.json
+        env:
+          CWV_API_KEY: ${{ secrets.CWV_API_KEY }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+
+      - name: Save run history
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: .cwv-watch
+          key: cwv-history-${{ github.run_id }}
+
+      - name: Upload reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cwv-report
+          path: cwv-report/
+          retention-days: 90

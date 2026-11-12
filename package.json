@@ -1,0 +1,65 @@
+{
+  "name": "cwv-watch",
+  "version": "0.1.0",
+  "description": "Core Web Vitals monitor for CI: CrUX field data, CrUX history trends and PageSpeed Insights lab data, with budgets, regression detection, Markdown/JSON/HTML reports and notifications.",
+  "keywords": [
+    "core-web-vitals",
+    "crux",
+    "pagespeed-insights",
+    "lighthouse",
+    "web-performance",
+    "lcp",
+    "inp",
+    "cls",
+    "seo",
+    "monitoring"
+  ],
+  "author": "Saizul Amin (https://github.com/saizul)",
+  "license": "MIT",
+  "homepage": "https://github.com/saizul/cwv-watch#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/saizul/cwv-watch.git"
+  },
+  "bugs": {
+    "url": "https://github.com/saizul/cwv-watch/issues"
+  },
+  "type": "module",
+  "main": "./dist/src/index.js",
+  "types": "./dist/src/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/src/index.d.ts",
+      "import": "./dist/src/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "cwv-watch": "dist/src/bin.js"
+  },
+  "files": [
+    "dist/src",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "sideEffects": false,
+  "scripts": {
+    "clean": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\"",
+    "build": "npm run clean && tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "lint": "tsc -p tsconfig.json --noEmit && prettier --check . && node scripts/check-style.mjs",
+    "test": "npm run build && node scripts/run-tests.mjs",
+    "test:only": "node scripts/run-tests.mjs",
+    "prepublishOnly": "npm test",
+    "format": "prettier --write ."
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.0",
+    "prettier": "^3.10.1",
+    "typescript": "~5.9.3"
+  }
+}

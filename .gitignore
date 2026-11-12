@@ -1,0 +1,23 @@
+# Dependencies and build output
+node_modules/
+dist/
+coverage/
+*.tgz
+
+# Local run output (keep the committed sample in examples/)
+/cwv-report/
+/.cwv-watch/
+*.tmp
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Logs, caches, editors, OS
+*.log
+.npm/
+.eslintcache
+.idea/
+.vscode/
+.DS_Store

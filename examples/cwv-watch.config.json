@@ -1,0 +1,39 @@
+{
+  "targets": [
+    { "name": "Home", "url": "https://www.example.com/" },
+    { "name": "Product page", "url": "https://www.example.com/products/blue-widget", "budgets": { "lcp": 3000 } },
+    {
+      "name": "Blog article",
+      "url": "https://www.example.com/blog/hello-world",
+      "formFactors": ["PHONE"],
+      "labBudgets": { "performanceScore": 80 }
+    },
+    { "name": "Whole site", "origin": "https://www.example.com", "skipLab": true }
+  ],
+  "formFactors": ["PHONE", "DESKTOP"],
+  "metrics": ["lcp", "inp", "cls", "fcp", "ttfb"],
+  "sources": { "crux": true, "history": true, "psi": true },
+  "historyPeriods": 25,
+  "trendPeriods": 8,
+  "trendThreshold": 0.05,
+  "budgets": { "lcp": "good", "inp": "good", "cls": "good", "ttfb": 1800 },
+  "labBudgets": { "performanceScore": 70, "tbt": 300 },
+  "regression": {
+    "relative": 0.1,
+    "absolute": { "lcp": 100, "inp": 20, "cls": 0.02, "fcp": 100, "ttfb": 50 },
+    "ratingDrop": true
+  },
+  "failOn": { "budget": true, "regression": false, "errors": false },
+  "storage": { "path": ".cwv-watch/history.json", "keepRuns": 52 },
+  "reports": { "outDir": "cwv-report", "formats": ["md", "json", "html"] },
+  "concurrency": 4,
+  "rateLimit": { "cruxPerMinute": 120, "psiPerMinute": 60 },
+  "http": { "timeoutMs": 90000, "retries": 2 },
+  "apiKeyEnv": "CWV_API_KEY",
+  "notify": {
+    "on": "change",
+    "slack": { "urlEnv": "SLACK_WEBHOOK_URL" },
+    "telegram": { "botTokenEnv": "TELEGRAM_BOT_TOKEN", "chatIdEnv": "TELEGRAM_CHAT_ID" },
+    "webhook": { "urlEnv": "CWV_WEBHOOK_URL", "headers": { "x-source": "cwv-watch" } }
+  }
+}
