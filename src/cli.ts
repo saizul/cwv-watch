@@ -21,12 +21,12 @@ Usage:
   cwv-watch run [options]          Query the APIs, compare with the last run, write reports
   cwv-watch validate [options]     Check the configuration file and exit
   cwv-watch init [--config path]   Write a starter configuration file
-  cwv-watch report --input <file>  Re-render a JSON report as Markdown or HTML
+  cwv-watch report --input <file>  Re-render a JSON report as Markdown, HTML or JUnit XML
 
 Options:
   -c, --config <path>     Configuration file (default: cwv-watch.config.json)
   -o, --out <dir>         Report directory (overrides reports.outDir)
-  -f, --format <list>     Comma-separated report formats: md,json,html
+  -f, --format <list>     Comma-separated report formats: md,json,html,junit
       --stdout <format>   Also print one report format to standard output
       --no-crux           Skip the CrUX queryRecord call
       --no-history        Skip the CrUX history call (no trends)

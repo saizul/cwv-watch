@@ -175,3 +175,31 @@ test('report rejects foreign JSON', async () => {
   await writeFile(p, '{"hello":1}');
   assert.equal(await main(['report', '--input', p], io().io), EXIT.usage);
 });
+
+test('--format junit writes a JUnit XML report whose failures match the exit code', async () => {
+  const { dir, path } = await setup();
+  const t = io({ CWV_API_KEY: 'K' }, 5000);
+  assert.equal(await main(['run', '-c', path, '-q', '--format', 'junit,json', '--no-store'], t.io), EXIT.failed);
+  const xml = await readFile(join(dir, 'report', 'cwv-report.junit.xml'), 'utf8');
+  assert.match(xml, /^<\?xml version="1.0" encoding="UTF-8"\?>/);
+  assert.match(xml, /<testsuites name="cwv-watch" tests="\d+" failures="1" errors="0"/);
+  assert.match(xml, /type="BudgetFailure"/);
+  const report = JSON.parse(await readFile(join(dir, 'report', 'cwv-report.json'), 'utf8'));
+  assert.deepEqual(report.summary.gates, { budget: true, regression: false, errors: false });
+});
+
+test('report re-renders a JSON report as JUnit XML using the gates of the run', async () => {
+  const { dir, path } = await setup({ budgets: { lcp: 4000 }, failOn: { regression: true } });
+  await main(['run', '-c', path, '-q'], io({ CWV_API_KEY: 'K' }, 2000).io);
+  assert.equal(await main(['run', '-c', path, '-q'], io({ CWV_API_KEY: 'K' }, 2900).io), EXIT.failed);
+  const input = join(dir, 'report', 'cwv-report.json');
+  const s = io();
+  assert.equal(await main(['report', '--input', input, '--stdout', 'junit'], s.io), EXIT.ok);
+  const xml = s.out.join('');
+  assert.match(xml, /<failure message="LCP 2 s -&gt; 2.9 s \(\+45.0%\)" type="Regression">/);
+  assert.equal(
+    await main(['report', '--input', input, '--format', 'junit', '--out', join(dir, 'x'), '-q'], io().io),
+    0,
+  );
+  assert.equal(await readFile(join(dir, 'x', 'cwv-report.junit.xml'), 'utf8'), xml);
+});

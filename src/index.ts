@@ -22,6 +22,7 @@ export { loadStore, saveStore, appendRun, latestRun, compactRun, type StoreFile 
 export { renderMarkdown } from './report/markdown.js';
 export { renderHtml } from './report/html.js';
 export { renderJson } from './report/json.js';
+export { renderJunit, junitCases, junitClassName, escapeXml, DEFAULT_GATES } from './report/junit.js';
 export { svgSparkline, textSparkline } from './report/sparkline.js';
 export { render, writeReports, type ReportFormat } from './output.js';
 export * from './notify/index.js';

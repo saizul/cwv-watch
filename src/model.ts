@@ -69,6 +69,13 @@ export interface TargetResult {
   overall: Rating | null;
 }
 
+/** Which problems fail the run; a copy of `failOn` from the configuration. */
+export interface Gates {
+  budget: boolean;
+  regression: boolean;
+  errors: boolean;
+}
+
 export interface RunSummary {
   targets: number;
   withFieldData: number;
@@ -78,6 +85,8 @@ export interface RunSummary {
   improving: number;
   worsening: number;
   passed: boolean;
+  /** The gates `passed` was computed with. Absent in reports written by cwv-watch 0.1.0. */
+  gates?: Gates;
 }
 
 export interface RunResult {

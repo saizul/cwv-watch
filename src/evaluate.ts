@@ -151,6 +151,7 @@ export function summarize(results: TargetResult[], failOn: Config['failOn']): Ru
     improving: trends.filter((t) => t === 'improving').length,
     worsening: trends.filter((t) => t === 'worsening').length,
     passed,
+    gates: { budget: failOn.budget, regression: failOn.regression, errors: failOn.errors },
   };
 }
 

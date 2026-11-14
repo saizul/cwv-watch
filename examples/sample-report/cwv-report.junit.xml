@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="cwv-watch" tests="24" failures="9" errors="0" skipped="6" time="0">
+  <testsuite name="Home [PHONE]" id="0" tests="4" failures="1" errors="0" skipped="0" time="0" timestamp="2026-11-12T06:00:00">
+    <properties>
+      <property name="url" value="https://www.example.com/"/>
+      <property name="formFactor" value="PHONE"/>
+      <property name="overall" value="good"/>
+      <property name="performanceScore" value="68"/>
+    </properties>
+    <testcase name="budget field LCP rating good or better" classname="cwv-watch.home.phone" time="0"/>
+    <testcase name="budget field INP rating good or better" classname="cwv-watch.home.phone" time="0"/>
+    <testcase name="budget field CLS rating good or better" classname="cwv-watch.home.phone" time="0"/>
+    <testcase name="budget lab Performance score &gt;= 70" classname="cwv-watch.home.phone" time="0">
+      <failure message="Performance score (lab) 68 vs score &gt;= 70: FAIL" type="BudgetFailure">Performance score (lab) 68 vs score &gt;= 70: FAIL</failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Home [DESKTOP]" id="1" tests="4" failures="0" errors="0" skipped="0" time="0" timestamp="2026-11-12T06:00:00">
+    <properties>
+      <property name="url" value="https://www.example.com/"/>
+      <property name="formFactor" value="DESKTOP"/>
+      <property name="overall" value="good"/>
+      <property name="performanceScore" value="93"/>
+    </properties>
+    <testcase name="budget field LCP rating good or better" classname="cwv-watch.home.desktop" time="0"/>
+    <testcase name="budget field INP rating good or better" classname="cwv-watch.home.desktop" time="0"/>
+    <testcase name="budget field CLS rating good or better" classname="cwv-watch.home.desktop" time="0"/>
+    <testcase name="budget lab Performance score &gt;= 70" classname="cwv-watch.home.desktop" time="0"/>
+  </testsuite>
+  <testsuite name="Product page [PHONE]" id="2" tests="4" failures="4" errors="0" skipped="0" time="0" timestamp="2026-11-12T06:00:00">
+    <properties>
+      <property name="url" value="https://www.example.com/products/blue-widget"/>
+      <property name="formFactor" value="PHONE"/>
+      <property name="overall" value="needs-improvement"/>
+      <property name="performanceScore" value="68"/>
+    </properties>
+    <testcase name="budget field LCP rating good or better" classname="cwv-watch.product-page.phone" time="0">
+      <failure message="LCP (field) 3.32 s vs rating good or better: FAIL" type="BudgetFailure">LCP (field) 3.32 s vs rating good or better: FAIL</failure>
+    </testcase>
+    <testcase name="budget field INP rating good or better" classname="cwv-watch.product-page.phone" time="0">
+      <failure message="INP (field) 240 ms vs rating good or better: FAIL" type="BudgetFailure">INP (field) 240 ms vs rating good or better: FAIL</failure>
+    </testcase>
+    <testcase name="budget field CLS rating good or better" classname="cwv-watch.product-page.phone" time="0">
+      <failure message="CLS (field) 0.18 vs rating good or better: FAIL" type="BudgetFailure">CLS (field) 0.18 vs rating good or better: FAIL</failure>
+    </testcase>
+    <testcase name="budget lab Performance score &gt;= 70" classname="cwv-watch.product-page.phone" time="0">
+      <failure message="Performance score (lab) 68 vs score &gt;= 70: FAIL" type="BudgetFailure">Performance score (lab) 68 vs score &gt;= 70: FAIL</failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Product page [DESKTOP]" id="3" tests="4" failures="3" errors="0" skipped="0" time="0" timestamp="2026-11-12T06:00:00">
+    <properties>
+      <property name="url" value="https://www.example.com/products/blue-widget"/>
+      <property name="formFactor" value="DESKTOP"/>
+      <property name="overall" value="needs-improvement"/>
+      <property name="performanceScore" value="93"/>
+    </properties>
+    <testcase name="budget field LCP rating good or better" classname="cwv-watch.product-page.desktop" time="0">
+      <failure message="LCP (field) 3.32 s vs rating good or better: FAIL" type="BudgetFailure">LCP (field) 3.32 s vs rating good or better: FAIL</failure>
+    </testcase>
+    <testcase name="budget field INP rating good or better" classname="cwv-watch.product-page.desktop" time="0">
+      <failure message="INP (field) 240 ms vs rating good or better: FAIL" type="BudgetFailure">INP (field) 240 ms vs rating good or better: FAIL</failure>
+    </testcase>
+    <testcase name="budget field CLS rating good or better" classname="cwv-watch.product-page.desktop" time="0">
+      <failure message="CLS (field) 0.18 vs rating good or better: FAIL" type="BudgetFailure">CLS (field) 0.18 vs rating good or better: FAIL</failure>
+    </testcase>
+    <testcase name="budget lab Performance score &gt;= 70" classname="cwv-watch.product-page.desktop" time="0"/>
+  </testsuite>
+  <testsuite name="New landing page [PHONE]" id="4" tests="4" failures="1" errors="0" skipped="3" time="0" timestamp="2026-11-12T06:00:00">
+    <properties>
+      <property name="url" value="https://www.example.com/landing/new"/>
+      <property name="formFactor" value="PHONE"/>
+      <property name="overall" value="no-data"/>
+      <property name="performanceScore" value="68"/>
+    </properties>
+    <testcase name="budget field LCP rating good or better" classname="cwv-watch.new-landing-page.phone" time="0">
+      <skipped message="no field data"/>
+    </testcase>
+    <testcase name="budget field INP rating good or better" classname="cwv-watch.new-landing-page.phone" time="0">
+      <skipped message="no field data"/>
+    </testcase>
+    <testcase name="budget field CLS rating good or better" classname="cwv-watch.new-landing-page.phone" time="0">
+      <skipped message="no field data"/>
+    </testcase>
+    <testcase name="budget lab Performance score &gt;= 70" classname="cwv-watch.new-landing-page.phone" time="0">
+      <failure message="Performance score (lab) 68 vs score &gt;= 70: FAIL" type="BudgetFailure">Performance score (lab) 68 vs score &gt;= 70: FAIL</failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="New landing page [DESKTOP]" id="5" tests="4" failures="0" errors="0" skipped="3" time="0" timestamp="2026-11-12T06:00:00">
+    <properties>
+      <property name="url" value="https://www.example.com/landing/new"/>
+      <property name="formFactor" value="DESKTOP"/>
+      <property name="overall" value="no-data"/>
+      <property name="performanceScore" value="93"/>
+    </properties>
+    <testcase name="budget field LCP rating good or better" classname="cwv-watch.new-landing-page.desktop" time="0">
+      <skipped message="no field data"/>
+    </testcase>
+    <testcase name="budget field INP rating good or better" classname="cwv-watch.new-landing-page.desktop" time="0">
+      <skipped message="no field data"/>
+    </testcase>
+    <testcase name="budget field CLS rating good or better" classname="cwv-watch.new-landing-page.desktop" time="0">
+      <skipped message="no field data"/>
+    </testcase>
+    <testcase name="budget lab Performance score &gt;= 70" classname="cwv-watch.new-landing-page.desktop" time="0"/>
+  </testsuite>
+</testsuites>
