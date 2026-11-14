@@ -95,5 +95,5 @@ const config = resolveConfig({
 
 const now = () => Date.parse('2026-11-12T06:00:00Z');
 const run = await runWatch({ config, apiKey: 'offline-demo', fetch: fakeFetch, sleep: async () => {}, now });
-const files = await writeReports(run, 'examples/sample-report', ['md', 'html']);
+const files = await writeReports(run, 'examples/sample-report', ['md', 'html', 'junit']);
 console.log(`Wrote ${files.join(', ')} (${run.summary.passed ? 'passed' : 'failed'})`);

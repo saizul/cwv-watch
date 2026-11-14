@@ -150,6 +150,10 @@ test('report formats and regression settings', () => {
   assert.equal(c.regression.absolute.inp, 20);
   assert.equal(c.regression.ratingDrop, false);
   assert.ok(issues({ ...minimal, reports: { formats: ['pdf'] } }).length > 0);
+  assert.deepEqual(resolveConfig({ ...minimal, reports: { formats: ['junit', 'md'] } }).reports.formats, [
+    'junit',
+    'md',
+  ]);
 });
 
 test('notify configuration', () => {

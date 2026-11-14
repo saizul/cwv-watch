@@ -37,8 +37,9 @@ $ echo $?
 - **Ratings** with Google's published boundaries (see [Thresholds](#thresholds)).
 - **Regression detection** against the previous run, stored as JSON: a p75 that got worse by a relative _and_ an
   absolute threshold, or whose rating dropped.
-- **Reports** in Markdown (ready for `GITHUB_STEP_SUMMARY` and PR comments), JSON (everything, for your own tooling)
-  and self-contained HTML with inline SVG sparklines (no scripts, no external requests, light and dark mode).
+- **Reports** in Markdown (ready for `GITHUB_STEP_SUMMARY` and PR comments), JSON (everything, for your own tooling),
+  self-contained HTML with inline SVG sparklines (no scripts, no external requests, light and dark mode) and JUnit
+  XML for the test report views of CI systems.
 - **CI-friendly exit codes**: non-zero when a budget fails, optionally also on regressions or API errors.
 - **Notifiers**: generic JSON webhook, Slack-compatible incoming webhook, Telegram bot. Each one is optional and a
   failing notifier never fails the run.
@@ -94,22 +95,23 @@ cwv-watch run                          # queries the APIs and writes reports
 cwv-watch run --stdout md              # also prints the Markdown report
 cwv-watch run --no-psi --format json   # field data only, JSON report only
 cwv-watch report --input cwv-report/cwv-report.json --format html --out public/
+cwv-watch run --format md,json,junit       # adds cwv-report/cwv-report.junit.xml
 ```
 
-| Option                 | Meaning                                                  |
-| ---------------------- | -------------------------------------------------------- |
-| `-c, --config <path>`  | Configuration file, default `cwv-watch.config.json`      |
-| `-o, --out <dir>`      | Report directory, overrides `reports.outDir`             |
-| `-f, --format <list>`  | Report formats to write, comma separated: `md,json,html` |
-| `--stdout <format>`    | Also print one format to standard output                 |
-| `--no-crux`            | Skip the CrUX `queryRecord` call                         |
-| `--no-history`         | Skip the CrUX history call (no trends or sparklines)     |
-| `--no-psi`             | Skip PageSpeed Insights (no lab data, much faster)       |
-| `--no-store`           | Do not read or update the history file                   |
-| `--no-notify`          | Do not send notifications                                |
-| `--fail-on-regression` | Exit 1 on regressions too, not only on budget failures   |
-| `--no-fail`            | Exit 0 whenever the run completes (report only)          |
-| `-q, --quiet`          | Only print errors                                        |
+| Option                 | Meaning                                                        |
+| ---------------------- | -------------------------------------------------------------- |
+| `-c, --config <path>`  | Configuration file, default `cwv-watch.config.json`            |
+| `-o, --out <dir>`      | Report directory, overrides `reports.outDir`                   |
+| `-f, --format <list>`  | Report formats to write, comma separated: `md,json,html,junit` |
+| `--stdout <format>`    | Also print one format to standard output                       |
+| `--no-crux`            | Skip the CrUX `queryRecord` call                               |
+| `--no-history`         | Skip the CrUX history call (no trends or sparklines)           |
+| `--no-psi`             | Skip PageSpeed Insights (no lab data, much faster)             |
+| `--no-store`           | Do not read or update the history file                         |
+| `--no-notify`          | Do not send notifications                                      |
+| `--fail-on-regression` | Exit 1 on regressions too, not only on budget failures         |
+| `--no-fail`            | Exit 0 whenever the run completes (report only)                |
+| `-q, --quiet`          | Only print errors                                              |
 
 ### Exit codes
 
@@ -162,7 +164,7 @@ or anything with a path is a page URL.
 | `storage.path`            | `.cwv-watch/history.json`                        | Run history file                                                                                         |
 | `storage.keepRuns`        | `30`                                             | Runs to keep in it                                                                                       |
 | `reports.outDir`          | `cwv-report`                                     | Report directory                                                                                         |
-| `reports.formats`         | `["md", "json", "html"]`                         | Formats to write                                                                                         |
+| `reports.formats`         | `["md", "json", "html"]`                         | Formats to write; add `"junit"` for `cwv-report.junit.xml`                                               |
 | `concurrency`             | `4`                                              | Requests in flight per API                                                                               |
 | `rateLimit.cruxPerMinute` | `120`                                            | Requests started per minute against CrUX (its quota is 150); `0` disables the cap                        |
 | `rateLimit.psiPerMinute`  | `60`                                             | Same for PageSpeed Insights                                                                              |
@@ -281,7 +283,7 @@ permanent record, commit `.cwv-watch/history.json` to a branch instead.
 
 ## Reports
 
-All three formats come from the same run data.
+All formats come from the same run data.
 
 - **Markdown**: overview table, then per target and form factor the field p75, rating, share of good experiences,
   change since the last run, trend, a text sparkline of the weekly p75 and the lab value, followed by budget failures,
@@ -289,8 +291,32 @@ All three formats come from the same run data.
 - **HTML**: the same content with distribution bars and inline SVG sparklines. Dashed lines in a sparkline mark the
   good and poor boundaries when they fall inside the plotted range. One file, no JavaScript, works offline.
 - **JSON**: the complete `RunResult`, including normalised CrUX and PSI data, for dashboards or your own checks.
+  `summary.gates` records the `failOn` settings the run was judged with.
+- **JUnit XML** (`junit`, opt-in): one `<testsuite>` per target and form factor, with the URL or origin, form factor,
+  overall rating and lab score as properties. See [JUnit XML](#junit-xml).
 
-A sample built from canned responses is in [`examples/sample-report/`](examples/sample-report/). Recreate it with
+### JUnit XML
+
+`cwv-report.junit.xml` lets CI systems that read JUnit results (GitLab merge request widgets, Jenkins, Azure
+Pipelines, CircleCI, or a JUnit reporter action on GitHub) list each check as a test case:
+
+| Test case                     | Created for                                                 | Outcome                                                                                   |
+| ----------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| `budget field LCP <= 3000 ms` | every field and lab budget                                  | passed, `<failure type="BudgetFailure">`, or `<skipped>` when there was no value to check |
+| `regression LCP`              | every metric with a field p75 in both this and the last run | passed (previous and current p75 in `system-out`) or `<failure type="Regression">`        |
+| `api psi`                     | every API error                                             | `<error type="ApiError">`                                                                 |
+
+Failures follow the same gates as the exit code (`failOn`, `--fail-on-regression`), so the test report and the job
+result always agree. A problem that is not gated stays visible without failing anything: an ungated budget failure or
+regression is a passing case whose `system-out` starts with `not gated:`, and an ungated API error is a skipped case.
+`cwv-watch report --input cwv-report.json --format junit` re-renders it later with the gates stored in the JSON
+report; reports written by 0.1.0 have none and use the defaults (budgets gated, regressions and errors not).
+
+Control characters that XML 1.0 does not allow are dropped from names and messages, so an odd byte in an API error
+cannot make the file unreadable.
+
+A sample built from canned responses (Markdown, HTML and JUnit XML) is in
+[`examples/sample-report/`](examples/sample-report/). Recreate it with
 `npm run build && node examples/offline-demo.mjs`, which needs no API key and no network.
 
 ## Library use

@@ -6,6 +6,16 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+### Added
+
+- JUnit XML report format (`junit`, written as `cwv-report.junit.xml`) for the test report views of CI systems: one
+  test suite per target and form factor, one test case per budget, per metric compared with the previous run and per
+  API error. Failures follow the `failOn` gates, so the test report agrees with the exit code; ungated problems are
+  kept as notes or skipped cases. Available in `reports.formats`, `--format`, `--stdout` and `cwv-watch report`.
+- `summary.gates` in the JSON report and run history: the `failOn` settings the run was judged with, used when a
+  JSON report is re-rendered as JUnit XML.
+- Sample JUnit XML report in `examples/sample-report/`.
+
 ## [0.1.0] - 2026-11-12
 
 Initial release.

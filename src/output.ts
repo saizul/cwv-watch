@@ -3,14 +3,16 @@ import { join } from 'node:path';
 import type { RunResult } from './model.js';
 import { renderHtml } from './report/html.js';
 import { renderJson } from './report/json.js';
+import { renderJunit } from './report/junit.js';
 import { renderMarkdown } from './report/markdown.js';
 
-export type ReportFormat = 'md' | 'json' | 'html';
+export type ReportFormat = 'md' | 'json' | 'html' | 'junit';
 
 export const REPORT_FILES: Record<ReportFormat, string> = {
   md: 'cwv-report.md',
   json: 'cwv-report.json',
   html: 'cwv-report.html',
+  junit: 'cwv-report.junit.xml',
 };
 
 export function render(run: RunResult, format: ReportFormat): string {
@@ -21,6 +23,8 @@ export function render(run: RunResult, format: ReportFormat): string {
       return renderJson(run);
     case 'html':
       return renderHtml(run);
+    case 'junit':
+      return renderJunit(run);
   }
 }
 

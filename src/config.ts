@@ -70,7 +70,7 @@ export interface Config {
   regression: RegressionConfig;
   failOn: { budget: boolean; regression: boolean; errors: boolean };
   storage: { path: string; keepRuns: number };
-  reports: { outDir: string; formats: Array<'md' | 'json' | 'html'> };
+  reports: { outDir: string; formats: Array<'md' | 'json' | 'html' | 'junit'> };
   concurrency: number;
   rateLimit: { cruxPerMinute: number; psiPerMinute: number };
   http: { timeoutMs: number; retries: number };
@@ -104,7 +104,7 @@ export const DEFAULT_CONFIG: Omit<Config, 'targets'> = {
 };
 
 const RATINGS: readonly Rating[] = ['good', 'needs-improvement', 'poor'];
-const FORMATS = ['md', 'json', 'html'] as const;
+const FORMATS = ['md', 'json', 'html', 'junit'] as const;
 const NOTIFY_ON: readonly NotifyOn[] = ['always', 'failure', 'change', 'never'];
 
 type Json = Record<string, unknown>;
@@ -361,7 +361,7 @@ export function resolveConfig(input: unknown): Config {
   if (reportsIn.formats !== undefined) {
     const f = reportsIn.formats;
     if (!Array.isArray(f) || !f.every((x) => (FORMATS as readonly unknown[]).includes(x))) {
-      c.fail('reports.formats', 'must be an array of "md", "json", "html"');
+      c.fail('reports.formats', 'must be an array of "md", "json", "html", "junit"');
     } else formats = [...new Set(f)] as Config['reports']['formats'];
   }
   const rateIn = sub('rateLimit');
